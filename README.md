@@ -1,300 +1,274 @@
-```markdown
-# 🚀 ResumeIQ – AI-Driven Resume Intelligence with Hybrid RAG
+<div align="center">
 
-**Python:** Version 3.10 or higher  
-**Spring Boot:** Version 3.x  
-**React Native:** Developed using Expo  
-**LLM:** Mistral-7B running via Ollama  
+# 🧠 ResumeIQ
 
-**ResumeIQ** is a full-stack AI system designed to transform static resumes into actionable career insights.  
-By leveraging a **Retrieval-Augmented Generation (RAG)** pipeline with local LLM inference, the platform provides deep contextual analysis beyond traditional ATS keyword scanning.
+### AI-Driven Resume Intelligence with Hybrid RAG
 
----
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
+[![React Native](https://img.shields.io/badge/React_Native-Expo-0EA5E9?style=for-the-badge&logo=expo&logoColor=white)](https://expo.dev)
+[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
+[![Ollama](https://img.shields.io/badge/Ollama-Mistral_7B-black?style=for-the-badge&logo=ollama&logoColor=white)](https://ollama.com)
+[![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com)
 
-# 🧠 Core Features
+**ResumeIQ** transforms static resumes into actionable career insights using a Hybrid RAG pipeline with fully local LLM inference — no external API calls, no data leakage.
 
-### ⚡ Intelligent ATS Scoring
-Real-time ATS compatibility analysis using a Spring Boot microservice.
-
-### 🔍 Hybrid RAG Analysis
-Combines semantic and keyword retrieval techniques:
-
-- Vector similarity using Sentence Transformers
-- BM25 keyword retrieval
-- Hybrid ranking
-- LLM-based reasoning
-
-This produces detailed feedback such as:
-
-- Structural flaws
-- Missing skills
-- Weak bullet points
-- Resume improvement suggestions
-
-### 📱 Mobile-First Experience
-React Native mobile interface enabling users to:
-
-- Upload resumes
-- Track resume history
-- View AI-generated insights
-
-### 🔒 Privacy-Centric AI
-The AI runs locally using **Ollama**, meaning resumes are not sent to external LLM APIs.
-
-### 📂 Cloud Persistence
-Documents are securely stored using:
-
-- Supabase Storage
-- PostgreSQL database
+</div>
 
 ---
 
-# 🏗️ System Architecture
+## ✨ What Makes This Different
 
-The system follows a **microservices architecture** for scalability and separation of concerns.
+> Most resume tools do simple keyword matching. ResumeIQ uses a **Hybrid Retrieval-Augmented Generation** pipeline to reason about your resume the way a senior recruiter would.
 
-### Frontend
-React Native (Expo)
-
-Responsible for:
-- User authentication
-- Resume upload
-- Resume history
-- AI feedback display
-
-### Backend
-Spring Boot API
-
-Responsible for:
-- Authentication (JWT)
-- Resume metadata
-- ATS scoring
-- Communication with AI service
-
-### AI Service
-FastAPI microservice implementing the RAG pipeline.
-
-Responsible for:
-- PDF extraction
-- Chunking and embedding
-- Hybrid retrieval
-- LLM prompting
-- Response generation
+| Feature | Traditional ATS | ResumeIQ |
+|---|---|---|
+| Analysis method | Keyword matching | Semantic + BM25 hybrid retrieval |
+| Feedback depth | Score only | Structural flaws, skill gaps, rewrites |
+| Privacy | Cloud LLM | 100% local via Ollama |
+| Interface | Web only | Mobile-first (React Native) |
 
 ---
 
-# 🔄 System Flow
-
-1. User uploads a resume via the mobile app.
-2. The resume is stored in Supabase Storage.
-3. Spring Boot stores metadata in PostgreSQL.
-4. User clicks **Analyze Resume**.
-5. Spring Boot sends the resume URL to the FastAPI RAG service.
-6. The RAG pipeline retrieves relevant resume sections.
-7. Mistral LLM generates contextual feedback.
-8. The result is returned and displayed in the mobile app.
-
----
-
-# 🧠 RAG Pipeline
-
-The system uses a **Hybrid Retrieval Augmented Generation pipeline**.
-
-Pipeline Steps:
-
-1. Resume PDF uploaded
-2. PDF text extraction
-3. Parent–child chunking
-4. Embedding generation
-5. Vector index creation
-6. Hybrid retrieval
-7. Reranking
-8. Context construction
-9. LLM prompt generation
-10. AI resume analysis output
-
----
-
-# 📂 Project Structure
-
+## 🏗️ Architecture
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    React Native (Expo)                       │
+│         Upload · History · AI Feedback Display               │
+└───────────────────────┬─────────────────────────────────────┘
+                        │ JWT Auth
+┌───────────────────────▼─────────────────────────────────────┐
+│                  Spring Boot API :8080                        │
+│         Auth · Resume Metadata · ATS Scoring                 │
+└───────────┬───────────────────────────┬─────────────────────┘
+            │ Store                     │ Analyze
+┌───────────▼──────────┐   ┌───────────▼─────────────────────┐
+│  Supabase            │   │  FastAPI RAG Service :8001        │
+│  · Storage (PDFs)    │   │  · PDF Extraction                 │
+│  · PostgreSQL        │   │  · Chunking & Embedding           │
+└──────────────────────┘   │  · Hybrid Retrieval               │
+                           │  · Reranking                      │
+                           │  · Mistral-7B (Ollama)            │
+                           └──────────────────────────────────┘
 ```
 
-resumeiq
+---
+
+## 🧠 RAG Pipeline
+```
+Resume PDF
+    │
+    ▼
+PDF Text Extraction
+    │
+    ▼
+Parent–Child Chunking
+    │
+    ├──────────────────────────────┐
+    ▼                              ▼
+Vector Embeddings              BM25 Index
+(Sentence Transformers)        (Keyword)
+    │                              │
+    └──────────┬───────────────────┘
+               ▼
+        Hybrid Retrieval
+               │
+               ▼
+          Reranking
+               │
+               ▼
+      Context Construction
+               │
+               ▼
+     Mistral-7B via Ollama
+               │
+               ▼
+     Structured Resume Feedback
+```
+
+---
+
+## 🚀 Quick Start
+
+The system runs as **three services simultaneously**. Open three terminal windows.
+
+### Prerequisites
+
+- Python 3.10+
+- Java 17+ & Maven
+- Node.js 18+
+- [Ollama](https://ollama.com) installed and running with Mistral-7B
+```bash
+# Pull the model before starting
+ollama pull mistral
+```
+
+---
+
+### 1️⃣ AI Service (FastAPI + RAG)
+```bash
+cd rag_core
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Start the RAG service
+python -m uvicorn rag_api:app --reload --port 8001
+```
+
+> ✅ Running at `http://localhost:8001`
+
+---
+
+### 2️⃣ Backend (Spring Boot)
+```bash
+cd SpringBoot/hello
+
+# Run the backend
+mvn spring-boot:run
+```
+
+> ✅ Running at `http://localhost:8080`
+
+---
+
+### 3️⃣ Mobile App (React Native + Expo)
+```bash
+cd Front/mineapp
+
+# Install dependencies
+npm install
+
+# Start Expo
+npx expo start
+```
+
+> ✅ Scan the QR code with the **Expo Go** app on your phone, or press `w` for web.
+
+---
+
+## 📂 Project Structure
+```
+resumeiq/
 │
 ├── Front/
 │   └── mineapp/
-│       ├── src/app
-│       ├── src/services
-│       └── assets
+│       ├── src/app/          # Screens & navigation
+│       ├── src/services/     # API calls
+│       └── assets/           # Images & fonts
 │
 ├── SpringBoot/
 │   └── hello/
-│       ├── controller
-│       ├── service
-│       ├── repository
-│       └── security
+│       ├── controller/       # REST endpoints
+│       ├── service/          # Business logic
+│       ├── repository/       # DB access layer
+│       └── security/         # JWT config
 │
 ├── rag_core/
-│   ├── chunker.py
-│   ├── embedder.py
-│   ├── retriever.py
-│   ├── hybrid.py
-│   ├── reranker.py
-│   ├── generator.py
-│   └── rag_api.py
+│   ├── chunker.py            # Parent-child chunking
+│   ├── embedder.py           # Sentence Transformer embeddings
+│   ├── retriever.py          # Vector similarity search
+│   ├── hybrid.py             # BM25 + vector hybrid ranking
+│   ├── reranker.py           # Cross-encoder reranking
+│   ├── generator.py          # LLM prompt & response
+│   └── rag_api.py            # FastAPI entrypoint
 │
 └── README.md
-
 ```
 
 ---
 
-# 🚀 Running the Project
-
-The system requires **three services running simultaneously**.
-
----
-
-## 1️⃣ Start the AI Service
-
-Navigate to:
-
+## 🔐 Authentication Flow
 ```
-
-rag_core
-
-```
-
-Install dependencies:
-
-```
-
-pip install -r requirements.txt
-
-```
-
-Start FastAPI:
-
-```
-
-python -m uvicorn rag_api:app --reload --port 8001
-
+User Login
+    │
+    ▼
+Spring Boot validates credentials
+    │
+    ▼
+JWT token generated & returned
+    │
+    ▼
+Token stored in mobile app
+    │
+    ▼
+Token attached to all API requests (Authorization: Bearer <token>)
 ```
 
 ---
 
-## 2️⃣ Start Spring Boot Backend
+## 🤖 Example AI Output
 
-Navigate to:
-
+Given a resume, the system produces structured feedback like:
 ```
+📋 RESUME ANALYSIS REPORT
+─────────────────────────────────────────
 
-SpringBoot/hello
+⚠️  Structural Issues
+  • Missing professional summary section
+  • Bullet points lack action verbs and metrics
 
-```
+🔧  Missing Skills Detected
+  • Cloud platforms (AWS / GCP / Azure)
+  • CI/CD tooling (GitHub Actions, Jenkins)
+  • Containerization (Docker, Kubernetes)
 
-Run:
+✅  Improvement Suggestions
+  • Quantify achievements: "Reduced load time by 40%"
+  • Add links to GitHub projects or live demos
+  • Tailor the skills section to match job descriptions
 
-```
-
-mvn spring-boot:run
-
-```
-
-The backend runs on:
-
-```
-
-[http://localhost:8080](http://localhost:8080)
-
-```
-
----
-
-## 3️⃣ Start Mobile App
-
-Navigate to:
-
-```
-
-Front/mineapp
-
-```
-
-Install dependencies:
-
-```
-
-npm install
-
-```
-
-Start Expo:
-
-```
-
-npx expo start
-
+📊  ATS Compatibility Score: 67 / 100
 ```
 
 ---
 
-# 🔐 Authentication
+## 🔒 Privacy First
 
-Authentication is handled using **JWT tokens**.
+Unlike cloud-based resume tools, **ResumeIQ never sends your resume to an external AI API**.
 
-Flow:
-
-1. User logs in
-2. Spring Boot generates JWT
-3. Token is stored in the mobile app
-4. Token is attached to API requests
+- 🏠 Mistral-7B runs **fully locally** via Ollama
+- 📄 PDFs are stored only in **your own Supabase instance**
+- 🔑 All authentication is handled by **your own Spring Boot backend**
 
 ---
 
-# 🤖 Example AI Feedback
+## 📌 Roadmap
 
-Example output generated by the RAG system:
-
-Structural flaws:
-- Resume lacks a summary section
-- Bullet points are vague
-
-Missing skills:
-- Cloud technologies
-- CI/CD tools
-
-Improvements:
-- Add quantified achievements
-- Include project links or GitHub
+- [ ] Job description matching & tailored resume rewriting
+- [ ] Skill gap detection against live job postings
+- [ ] AI-generated interview question preparation
+- [ ] Persistent vector database (ChromaDB / Weaviate)
+- [ ] Cloud deployment (Docker Compose / Railway)
+- [ ] Resume version comparison
 
 ---
 
-# 📌 Future Improvements
+## 🛠️ Tech Stack
 
-Potential enhancements include:
-
-- Job description matching
-- Skill gap detection
-- AI interview question generation
-- Vector database persistence
-- Cloud deployment
-
----
-
-# 👨‍💻 Author
-
-This project demonstrates a full-stack AI system combining:
-
-- Mobile development
-- Backend microservices
-- Retrieval-Augmented Generation
-- Local LLM inference
-- Hybrid information retrieval
+| Layer | Technology |
+|---|---|
+| Mobile Frontend | React Native + Expo |
+| Backend API | Spring Boot 3.x |
+| AI / RAG Service | FastAPI + LangChain |
+| LLM | Mistral-7B via Ollama |
+| Embeddings | Sentence Transformers |
+| Keyword Retrieval | BM25 |
+| Database | PostgreSQL (Supabase) |
+| File Storage | Supabase Storage |
+| Auth | JWT |
 
 ---
 
-⭐ If you find this project interesting, feel free to star the repository!
-```
+## 👨‍💻 Author
 
-If you want, I can also give you a **much stronger README version that looks like a top GitHub AI project (with badges, screenshots, and a better architecture section)** which makes recruiters notice it immediately.
+Built to demonstrate a production-grade AI system combining:
+**Mobile Development · Backend Microservices · Hybrid RAG · Local LLM Inference**
+
+---
+
+<div align="center">
+
+⭐ **Star this repo if you found it useful!**
+
+</div>
