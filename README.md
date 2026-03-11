@@ -260,7 +260,7 @@ Unlike cloud-based resume tools, **ResumeIQ never sends your resume to an extern
 
 ---
 
-## 👨‍💻 Author
+## 👨‍💻 Suchet Amaljari
 
 Built to demonstrate a production-grade AI system combining:
 **Mobile Development · Backend Microservices · Hybrid RAG · Local LLM Inference**
