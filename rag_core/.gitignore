@@ -1,0 +1,7 @@
+models/
+__pycache__/
+*.safetensors
+*.bin
+*.pt
+*.onnx
+.env
