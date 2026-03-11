@@ -1,10 +1,13 @@
 ```
 # 🚀 ResumeIQ – AI-Driven Resume Intelligence with Hybrid RAG
 
-[![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python)](https://www.python.org/)
-[![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-green?logo=springboot)](https://spring.io/projects/spring-boot)
-[![React Native](https://img.shields.io/badge/React_Native-Expo-61DAFB?logo=react)](https://reactnative.dev/)
-[![LLM](https://img.shields.io/badge/LLM-Mistral--7B-orange?logo=ollama)](https://ollama.ai/)
+Python: Version 3.10 or higher
+
+Spring Boot: Version 3.x
+
+React Native: Developed using Expo
+
+LLM: Mistral-7B running via Ollama
 
 **ResumeIQ** is a sophisticated full-stack ecosystem designed to bridge the gap between static resumes and actionable career insights. By leveraging a **Retrieval-Augmented Generation (RAG)** pipeline and local LLMs, it provides deep-context analysis that standard ATS systems miss.
 
@@ -109,8 +112,6 @@ npx expo start
 ## 👨‍💻 Author
 
 **Suchet Amaljari**
-
----
 
 ⭐ **If you find this architecture interesting, please consider starring the repository!**
 
